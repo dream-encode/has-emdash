@@ -1,4 +1,4 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## 0.1.0 - [UNRELEASED]
 * Initial release.
