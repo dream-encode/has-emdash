@@ -2,30 +2,63 @@ name: Deploy site to production on new release
 on:
   release:
     types: [published]
+
 jobs:
   Deploy:
     runs-on: ubuntu-latest
 
     steps:
     - name: Deploy using SSH
-      uses: appleboy/ssh-action@master
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_DEPLOY_HOST }}
         username: ${{ secrets.SSH_DEPLOY_USERNAME }}
         key: ${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}
         port: 22
         script: |
-          cd ${{ secrets.SSH_DEPLOY_DOCROOT }}
-          git reset
-          git clean  -d  -f .
-          git pull origin main
-          git fetch --all
-          git checkout tags/${{ github.event.release.tag_name }}
+          # Set deployment directory
+          DEPLOY_DIR="${{ secrets.SSH_DEPLOY_DOCROOT }}"
+
+          # Fix git ownership issues
+          sudo chown -R $(whoami):$(whoami) "$DEPLOY_DIR" || true
+
+          cd "$DEPLOY_DIR"
+
+          # Configure git to trust this directory
+          git config --global --add safe.directory "$DEPLOY_DIR"
+
+          # Clean up any local changes and reset to a known state
+          git reset --hard HEAD
+          git clean -fd
+
+          # Fetch all tags and branches
+          git fetch --all --tags --prune
+
+          # Checkout the specific release tag directly
+          git checkout "tags/${{ github.event.release.tag_name }}" -B "release-${{ github.event.release.tag_name }}"
+
           # Ensure we're using a compatible Node.js version
-          nvm use 22 || nvm install 22
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          # Install and use Node.js 22
+          nvm install 22
+          nvm use 22
+
+          # Verify Node.js version
+          echo "Node.js version: $(node --version)"
+          echo "npm version: $(npm --version)"
+
+          # Clean install dependencies
+          rm -rf node_modules package-lock.json
           npm ci
+
+          # Build the project
           npm run build
-    - name: Purge cache
+
+          echo "Deployment of ${{ github.event.release.tag_name }} completed successfully"
+
+    - name: Purge Cloudflare cache
       uses: jakejarvis/cloudflare-purge-action@master
       env:
         CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
