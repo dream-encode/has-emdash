@@ -1,0 +1,31 @@
+name: Deploy site to production
+on:
+  release:
+    types: [published]
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy using SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_DEPLOY_HOST }}
+        username: ${{ secrets.SSH_DEPLOY_USERNAME }}
+        key: ${{ secrets.SSH_DEPLOY_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd ${{ secrets.SSH_DEPLOY_DOCROOT }}
+          git reset
+          git clean  -d  -f .
+          git pull origin main
+          git fetch --all
+          git checkout tags/${{ github.event.release.tag_name }}
+          npm ci
+          npm run build
+    - name: Purge cache
+      uses: jakejarvis/cloudflare-purge-action@master
+      env:
+        CLOUDFLARE_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
+        CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+        CLOUDFLARE_KEY: ${{ secrets.CLOUDFLARE_KEY }}
