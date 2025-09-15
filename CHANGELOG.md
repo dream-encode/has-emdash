@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.0] - 2025-09-15
 * ENH: Added logo and favicon.
 * ENH: Enhanced header with logo and title.
 * ENH: Added Open Graph and Twitter meta tags.
