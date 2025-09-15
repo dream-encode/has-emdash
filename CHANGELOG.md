@@ -1,5 +1,8 @@
 # Changelog
 
+## [NEXT_VERSION] - [UNRELEASED]
+* BUG: We need vite.
+
 ## [0.2.1] - 2025-09-15
 * TWK: Update release workflow.
 
