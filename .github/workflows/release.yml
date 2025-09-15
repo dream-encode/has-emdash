@@ -1,4 +1,4 @@
-name: Deploy site to production
+name: Deploy site to production on new release
 on:
   release:
     types: [published]
