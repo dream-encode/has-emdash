@@ -1,0 +1,22 @@
+{
+  "name": "The Em Dash Oracle",
+  "short_name": "Em Dash Oracle",
+  "description": "A sophisticated tool for detecting AI-generated content through punctuation divination",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

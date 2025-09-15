@@ -21,6 +21,8 @@ jobs:
           git pull origin main
           git fetch --all
           git checkout tags/${{ github.event.release.tag_name }}
+          # Ensure we're using a compatible Node.js version
+          nvm use 22 || nvm install 22
           npm ci
           npm run build
     - name: Purge cache
