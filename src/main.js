@@ -3,7 +3,10 @@ import './style.css'
 document.querySelector('#app').innerHTML = `
   <div class="container">
     <header class="header">
-      <h1 class="title">The Em Dash Oracle</h1>
+      <div class="logo-container">
+        <img src="/logo.svg" alt="The Em Dash Oracle Logo" class="logo" />
+        <h1 class="title">The Em Dash Oracle</h1>
+      </div>
       <p class="subtitle">A Sophisticated Tool for AI Content Detection Through Punctuation Divination</p>
     </header>
 
