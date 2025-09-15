@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.2.1] - 2025-09-15
+* TWK: Update release workflow.
+
 ## [0.2.0] - 2025-09-15
 * ENH: Added logo and favicon.
 * ENH: Enhanced header with logo and title.
