@@ -1,6 +1,6 @@
 # Changelog
 
-## [NEXT_VERSION] - [UNRELEASED]
+## [0.2.2] - 2025-09-15
 * BUG: We need vite.
 
 ## [0.2.1] - 2025-09-15
