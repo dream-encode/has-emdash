@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.3.0] - 2026-10-26
+* TSK: Release - Add the `release` script using `@secret-santa-hat/build-tools`.
+* TSK: Deploy - Build the site as a container image on release, record the version in the infrastructure repository and deploy it to the dream-encode server without downtime.
+
 ## [0.2.2] - 2025-09-15
 * BUG: We need vite.
 
