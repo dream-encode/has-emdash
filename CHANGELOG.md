@@ -1,5 +1,8 @@
 # Changelog
 
+## [NEXT_VERSION] - [UNRELEASED]
+* TSK: Deploy - Build the site as a container image on release, record the version in the infrastructure repository and deploy it to the dream-encode server without downtime.
+
 ## [0.2.2] - 2025-09-15
 * BUG: We need vite.
 
